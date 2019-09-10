@@ -8,9 +8,22 @@ export default class extends Component {
   state = { modalOpen: false };
 
   toggleModal = () => {
+    const { onOpen, onClose, small, medium, large } = this.props;
+    const param = {
+      small,
+      medium,
+      large
+    }
+
     this.setState(prev => ({
       modalOpen: !prev.modalOpen
-    }));
+    }), () => {
+      if(this.state.modalOpen) {
+        onOpen && onOpen(param)
+      } else {
+        onClose && onClose(param)
+      }
+    });
   };
 
   render() {
